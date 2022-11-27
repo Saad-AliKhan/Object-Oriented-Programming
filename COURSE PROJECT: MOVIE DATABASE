@@ -1,0 +1,292 @@
+#include <iostream>
+#include<fstream>
+#include<string.h>
+#include<conio.h>
+using namespace std;
+
+class Movies
+{
+	private:
+    	char MovieName[30];
+    	int year;
+	public:
+
+		Movies() { }
+
+    	Movies(char MovieName[30],int year)
+		{
+        	strcpy(this->MovieName,MovieName);
+        	this->year = year;
+    	}
+
+    	void setTitle(){  cout<<"Enter MovieName: "; cin.ignore(); cin.getline(MovieName,30); }
+		void setYear() {  cout<<"Enter Year: "; cin>>year; }
+		const char*  getTitle(){ return MovieName; }
+		int getYear() { return year; }
+};
+
+class Genre : virtual public Movies {
+	private:
+		char genre[30];
+	public:
+		Genre() { }
+		Genre(char genre[],char MovieName[30],int year) : Movies(MovieName, year)
+		{ strcpy(this->genre,genre); }
+		void setGenre(){ cout<<"Enter Genre: "; cin.ignore(); cin.getline(genre,30); }
+		const char* getGenre() { return genre; }
+};
+
+class MPA :  virtual public Movies{
+	private:
+		char rating[30];
+    	char meaning[30];
+    	char description[30];
+	public:
+
+		MPA() { }
+
+    	MPA(char meaning[],char description[],char rating[],char MovieName[30],int year) : Movies(MovieName,year)  {
+        	strcpy(this->meaning,meaning);
+        	strcpy(this->description,description);
+        	strcpy(this->rating,rating);
+    	}
+
+		void setRating(){  cout<<"Enter Rating: "; cin.getline(rating,30);   }
+		void setMeaning(){ cout<<"Enter Meaning: "; cin.getline(meaning,30); }
+		void setDescription(){ cout<<"Enter Description: "; cin.getline(description,30); }
+		const char*  getRating(){ return rating; }
+		const char*  getMeaning(){ return meaning; }
+		const char*  getDescription(){ return description; }
+
+    	void showMPA(){
+        	cout<<"Rating: "<<rating<<endl;
+        	cout<<"meaning: "<<meaning<<endl;
+        	cout<<"description: "<<description<<endl;
+    	}
+};
+
+class Person : virtual  Movies{
+	private:
+    	char personName[30];
+    	char personBirth[30];
+    	char personDeath[30];
+    	char personWorks[30];
+    	char personRole[30];
+	public:
+
+	Person() { }
+
+    Person(char personName[],char personBirth[],char personDeath[],char personWorks[],char personRole[],char MovieName[30],int year) : Movies(MovieName,year)
+	{
+        strcpy(this-> personName,personName);
+        strcpy(this-> personBirth,personBirth);
+        strcpy(this-> personDeath,personDeath);
+        strcpy(this-> personWorks,personWorks);
+        strcpy(this-> personRole,personRole);
+    }
+
+    void setPersonName() {  cout<<"Enter Name of Person: "; cin.getline(personName,30);     }
+	void setPersonBirth(){  cout<<"Enter Birth Date: ";     cin.getline(personBirth,30);    }
+ 	void setPersonDeath(){  cout<<"Enter Death Date: ";     cin.getline(personDeath,30);    }
+	void setPersonWorks(){  cout<<"Enter Known For: ";      cin.getline(personWorks,30);    }
+	void setPersonRole() {  cout<<"Enter Role: ";           cin.getline(personRole,30);     }
+	const char*   getPersonName() { return personName; }
+	const char*   getPersonBirth() { return personBirth; }
+	const char*   getPersonDeath() { return personDeath; }
+	const char*   getPersonWorks() { return personWorks; }
+	const char*   getPersonRole() { return personRole; }
+};
+
+class Region : virtual public Movies{
+	private:
+		char origin[30];
+    	char language[30];
+
+	public:
+
+		Region() {  }
+
+    	Region(char language[],char origin[],char MovieName[30],int year) : Movies(MovieName,year)
+		{
+        	strcpy(this->language,language);
+        	strcpy(this->origin,origin);
+    	}
+    	void setLanguage(){ cout<<"Enter Language: "; cin.getline(language,30); }
+		void setOrigin()  { cout<<"Enter Origin: "; cin.getline(origin,30);     }
+		const char*  getOrigin(){ return origin; }
+		const char*  getLanguage(){ return language; }
+
+   		void showRegion(){
+   			cout<<"Origin: "<<origin; cin>>origin;
+        	cout<<"Language: "<<language;cin>>language;
+    	}
+
+};
+
+class MovieDataBase : public Genre,public MPA,public Person,public Region
+{
+	public:
+		MovieDataBase() { }
+		MovieDataBase(char genre[],char language[],char origin[],char MovieName[30],int year,char personName[],char personBirth[],char personDeath[],char personWorks[],char personRole[],char meaning[],char description[],char rating[]) : Genre(genre,MovieName,year),MPA(meaning,description,rating,MovieName,year),Person(personName,personBirth,personDeath,personWorks,personRole,MovieName,year),Region(language,origin,MovieName,year)
+		{}
+		void AddMovieRecord()
+		{
+			ofstream W;
+			W.open("File10.dat", ios::app | ios::binary );
+			AddMovie();
+			W.write( ( char *) this, sizeof(*this));
+			W.close();
+		}
+		void AddMovie()
+		{
+			setTitle();
+			setYear();
+			setGenre();
+			setRating();
+			setMeaning();
+			setDescription();
+			setPersonName();
+			setPersonBirth();
+ 			setPersonDeath();
+			setPersonWorks();
+			setPersonRole();
+			setOrigin();
+			setLanguage();
+		}
+		void ViewMovieList()
+		{
+			ifstream R;
+			R.open("File10.dat", ios::in | ios::binary );
+			if(!R){
+				cout<<"File Not Found";
+			}
+			else{
+					R.read( ( char *) this, sizeof(*this));
+					while(!R.eof())
+					{
+						ShowData();
+						R.read( (char*) this, sizeof(*this));
+					}
+					R.clear();
+				}
+		}
+		void SearchMovie(char *t){
+			ifstream R;
+			R.open("File10.dat",ios::in|ios::binary);
+
+			if(!R) { cout<<"File Not Found" ; }
+
+			else
+			{
+				R.read((char*) this,sizeof(*this));
+				while(!R.eof()){
+					if(!strcmp(t,getTitle())) { ShowData(); }
+					R.read((char*) this,sizeof(*this));
+				}
+				R.close();
+			}
+		}
+		void DeleteMovieRecord(char *t)
+		{
+			ifstream R;
+			ofstream W;
+			R.open("File10.dat", ios::out|ios::binary);
+			if(!R){ cout<<"File Not Found"; }
+			else {
+					W.open("tempfile.dat",ios::out|ios::binary);
+					R.read((char*)this,sizeof(*this));
+				}
+			while(!R.eof()){
+				if(strcmp(getTitle(),t))
+				{ W.write((char*) this,sizeof(*this)); }
+				R.read((char*) this,sizeof(*this));
+			}
+			R.close();
+			W.close();
+			remove("File10.dat");
+			rename("tempfile.dat","File10.dat");
+
+		}
+		void UpdateMovieRecord(char *t)
+		{
+			fstream file;
+			file.open("File10.dat",ios::in|ios::out|ios::ate|ios::binary);
+			file.seekg(0);
+			file.read((char*)this,sizeof(*this));
+			while(!file.eof()){
+				if(!strcmp(t,getTitle()))
+				{
+					int value = file.tellp();
+					AddMovieRecord();
+					file.seekp(value-sizeof(*this));
+					file.write((char*)this,sizeof(*this));
+				}
+				file.read((char*)this,sizeof(*this));
+			}
+			file.close();
+		}
+		void ShowData(void){
+			cout<<"Movie Name: "<<getTitle()<<endl;
+			cout<<"Movie year: "<<getYear()<<endl;
+			cout<<"Movie Genre: "<<getGenre()<<endl;
+			cout<<"Movie Rating: "<<getRating()<<endl;
+			cout<<"Movie Meaning: "<<getMeaning()<<endl;
+			cout<<"Movie Description: "<<getDescription()<<endl;
+			cout<<"Movie PersonName: "<<getPersonName()<<endl;
+			cout<<"Movie PersonBirth: "<<getPersonBirth()<<endl;
+			cout<<"Movie PersonDeath: "<<getPersonDeath()<<endl;
+ 			cout<<"Movie PersonWorks: "<<getPersonWorks()<<endl;
+			cout<<"Movie PersonRole: "<<getPersonRole()<<endl;
+			cout<<"Movie Origin: "<<getOrigin()<<endl;
+			cout<<"Movie Language: "<<getLanguage()<<endl<<endl;
+		}
+};
+
+
+void MainMenu(MovieDataBase Data)
+{
+	cout<<"1: Add New Movie "<<endl;
+	cout<<"2: View Movie List "<<endl;
+	cout<<"3: Update Movie record"<<endl;
+	cout<<"4: Search Movie Record"<<endl;
+	cout<<"5: Delete Movie Record"<<endl;
+	cout<<"6: Exit Program"<<endl;
+	char MovieName[30];
+	int op;	cin>>op;
+	switch(op)
+    {
+    	case 1: {  Data.AddMovieRecord();
+				   cout<<endl<<"Record Added"<<endl; getch(); system("CLS");
+				   break;   	}
+
+    	case 2: {  Data.ViewMovieList(); break;		}
+
+    	case 3: {  cout<<"Enter Movie Name to be Updated: ";
+    			   cin>>MovieName;
+				   Data.UpdateMovieRecord(MovieName);
+				   cout<<endl<<"Record Updated"<<endl;
+				   getch(); system("CLS"); break;	    }
+
+    	case 4: {  cout<<"Enter Movie Name to be Searched: ";
+    			   cin>>MovieName;
+				   Data.SearchMovie(MovieName);
+				   getch(); system("CLS");  break;		    }
+
+    	case 5: {  cout<<"Enter Movie Name to be Deleted: ";
+    			   cin>>MovieName;
+				   Data.DeleteMovieRecord(MovieName);
+				   cout<<endl<<"Record Deleted"<<endl;
+				   getch(); system("CLS");  break;	}
+		case 6: { exit(0); break; }
+
+    	default : { cout<<"Invalid"; }
+    }
+}
+
+int main()
+{
+	MovieDataBase movieDataBase;
+	MainMenu(movieDataBase);
+	return 0;
+}
+
