@@ -1,0 +1,127 @@
+#include <iostream>
+using namespace std;
+
+class student{
+protected:
+    string name;
+
+    string age;
+
+    string grade;
+
+    string gender;
+
+public:
+
+    student(){
+        this->name=name;
+        this->age=age;
+        this->grade=grade;
+        this->gender=gender;
+    }
+
+
+   void input(){
+       cout<<endl<<"input name: ";cin>>name;
+
+       cout<<endl<<"input age: ";cin>>age;
+
+       cout<<endl<<"input grade: ";cin>>grade;
+
+       cout<<endl<<"input gender: ";cin>>gender;
+   }
+
+   void show(){
+
+       cout<<"Name: "<<name<<endl;
+       cout<<"Age: "<<age<<endl;
+       cout<<"Grade: "<<grade<<endl;
+       cout<<"Gender: "<<gender<<endl;
+   }
+};
+
+class measurements : public student{
+private:
+    int height;
+    int weight;
+    int chest;
+    int bmi;
+
+
+public:
+
+    measurements(){
+        this->height=height;
+        this->weight=weight;
+        this->chest=chest;
+        this->bmi=bmi;
+    }
+
+
+    void input_measurements(){
+
+        cout<<endl<<"input height: ";
+        cin>>height;
+
+        cout<<endl<<"input weight: ";
+        cin>>weight;
+
+        cout<<endl<<"input chest: ";
+        cin>>chest;
+
+        cout<<endl<<"input bmi: ";
+        cin>>bmi;
+    }
+
+    void show_measurements(){
+        student :: show();
+
+        cout<<"Height is: "<<height<<endl;
+
+        cout<<"weight is: "<<weight<<endl;
+
+        cout<<"chest size: "<<chest<<endl;
+
+        cout<<"bmi is: "<<bmi<<endl;
+    };
+
+};
+
+class attendance : public student{
+private:
+    int atten;
+
+public:
+
+    attendance(){
+        this->atten=atten;
+    }
+
+
+
+    void Attendance(){
+        cout<<endl<<"Input attendance: ";
+        cin>>atten;
+    }
+
+    void show_atten(){
+        student :: show();
+        cout<<"Attendance is: "<<atten;
+    };
+
+
+};
+int main() {
+    measurements m1;
+    attendance a1;
+
+    m1.input();
+    m1.input_measurements();
+    m1.show_measurements();
+
+    a1.input();
+    a1.Attendance();
+    a1.show_atten();
+
+
+};
