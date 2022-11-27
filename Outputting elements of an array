@@ -1,0 +1,15 @@
+#include<iostream>
+using namespace std;
+
+int main(){
+	int arr[4][2] = {{2,4},{3,5},{1,1},{3,9} };
+	cout<<"Two dimensiom array is : \n";
+	int i,j;
+	for(i=0;i<4; i++){
+		for(j=0;j<2;j++){
+			cout<<arr[i][j]<<"  ";
+			cout<<endl;
+		}
+	}
+	return 0;
+}
