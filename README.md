@@ -1,5 +1,7 @@
+Object-Oriented-Programming
+
 Semester 2
 
-Object Oriented Programming
+C++
 
 Assignments and Course Project
