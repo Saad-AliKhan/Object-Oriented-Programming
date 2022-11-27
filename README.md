@@ -1,3 +1,3 @@
-Semester 2/n/
+Semester 
 Object Oriented Programming
 Assignments and Course Project
