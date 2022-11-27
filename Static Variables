@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+class SerialNumber{
+private:
+    string SNum;
+    static int count;
+
+public:
+
+    SerialNumber();
+
+
+};
+
+int SerialNumber::count = 1;
+
+SerialNumber::SerialNumber()
+{
+    count++;
+    SNum = "2022FAST" + to_string(count) + "OOP";
+    cout <<SNum<<endl;
+}
+int main() {
+    SerialNumber s1;
+    SerialNumber s2;
+    SerialNumber s3;
+    SerialNumber s4;
+    SerialNumber s5;
+
+
+    return 0;
+}
