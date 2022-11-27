@@ -1,0 +1,58 @@
+#include <iostream>
+using namespace std;
+
+class chef{
+protected:
+    string Dishes[3]= {"Chicken","Salad","Special"};
+
+public:
+    chef(){}
+
+   void dishes(){
+       for(int i=0; i<3; i++){
+           cout<<"I can cook: "<<Dishes[i]<<endl;
+       };
+   };
+};
+
+class italian : public chef{
+private:
+    string ItalianDishes[3]={"pizza","pasta","ItalianSpecial"};
+
+public:
+    italian(){
+        this->ItalianDishes[3]=ItalianDishes[3];
+    }
+
+    void dishes2() {
+        for (int i = 0; i < 3; i++) {
+            cout << "I can cook: " << ItalianDishes[i] << endl;
+        }
+    }
+};
+
+class Chinese : public chef{
+private:
+    string ChineseDishes[1]={"Fried Rice"};
+
+public:
+    Chinese(){
+        this->ChineseDishes[1]=ChineseDishes[1];
+    }
+
+    void dishes3() {
+        for (int i = 0; i < 1; i++) {
+            cout << "I can cook: " << ChineseDishes[i] << endl;
+        }
+    }
+};
+
+
+int main() {
+    Chinese c1;
+
+    c1.dishes();
+    c1.dishes3();
+
+    return 0;
+};
