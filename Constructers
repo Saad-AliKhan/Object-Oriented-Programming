@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+class rectangle{
+    private:
+    float length;
+    float breadth;
+
+public:
+    rectangle();
+
+
+    rectangle(float l, float b)
+    {
+        length = l;
+        breadth = b;
+    }
+
+    rectangle(float x)
+    {
+        length = x;
+        breadth = x;
+    }
+
+    float area()
+    {
+       return length*breadth;
+
+    }
+
+    void display()
+    {
+        cout <<"Length: " <<length<<endl;
+        cout <<"breadth: "<<breadth<<endl;
+    }
+
+};
+int main() {
+    rectangle r1 = rectangle();
+    rectangle r2 = rectangle(2,2);
+    rectangle r3 = rectangle(2);
+
+
+    return 0;
+
