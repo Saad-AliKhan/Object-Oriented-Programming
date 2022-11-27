@@ -1,0 +1,100 @@
+
+#include <iostream>
+using namespace std;
+
+class Employee{
+protected:
+    string empName;
+    string empNumber;
+
+public:
+    Employee(string ENam, string ENum ){
+        empName = ENam;
+        empNumber = ENum;
+    }
+
+    void getData(){
+        cout<<"Enter Employee Name: ";cin>>empName;
+
+        cout<<"Enter Employee Number: ";cin>>empNumber;
+    }
+
+    void putData(){
+        cout<<"Name is: "<<empName<<endl;
+        cout<<"Number is: "<<empNumber<<endl;
+    }
+};
+
+class Manager : public Employee{
+private:
+    char title;
+    double dues;
+
+public:
+    Manager(string ENam, string ENum, char t, double d):Employee(string ENam, string ENum){
+        title = t;
+        dues = d;
+    }
+
+    void getData(){
+        cout<<"Enter Title: ";cin>>title;
+
+        cout<<"Enter Dues: ";cin>>dues;
+    }
+
+    void putData(){
+        cout<<"Manager Name is: "<<title<<endl;
+        cout<<"Dues is: "<<dues<<endl;
+    }
+};
+
+class Scientist : public Employee{
+private:
+    int publications;
+
+public:
+    Scientist(string ENam, string ENum, int p):Employee(string ENam, string ENum){
+        publications = p;
+    }
+
+    void getData(){
+        cout<<"Enter number of publications: ";cin>>publications;
+
+    }
+
+    void putData(){
+        cout<<"Number of publications is: "<<publications<<endl;
+    }
+};
+
+class Programmer : public Employee{
+private:
+    double salary;
+    string expertiese;
+
+public:
+    Programmer(string ENam, string ENum, double s, string e): Employee(string ENam, string ENum){
+        salary = s;
+        expertiese = e;
+    }
+
+    void getData(){
+        cout<<"Enter amount of salary: ";cin>>salary;
+
+        cout<<"Enter expertiese: ";cin>>expertiese;
+    }
+
+    void putData(){
+        cout<<"Salary amount is: "<<salary<<endl;
+        cout<<"Expert in: "<<expertiese<<endl;
+    }
+};
+
+
+
+int main() {
+
+
+
+    return 0;
+}
