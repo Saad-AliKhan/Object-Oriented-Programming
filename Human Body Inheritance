@@ -1,0 +1,85 @@
+#include <iostream>
+using namespace std;
+
+
+class Person{
+protected:
+    string grey_matter;
+    string valves;
+    string limbic_system;
+    string femur;
+    string knee_cap;
+    string aoerta;
+
+public:
+    Person() {
+        this->grey_matter = grey_matter;
+        this->valves = valves;
+        this->limbic_system = limbic_system;
+        this->femur = femur;
+        this->knee_cap = knee_cap;
+        this->aoerta = aoerta;
+    }
+
+    void GM(){
+        cout<<"Main function of the brain";
+    }
+
+    void Valve(){
+        cout<<"Transports blood";
+    }
+
+    void LS(){
+        cout<<"Responsible for emotion";
+    }
+
+    void Femur(){
+        cout<<"Longest bone";
+    }
+    void KC(){
+        cout<<"Joint movement";
+    }
+
+    void Aoerta(){
+        cout<<"Biggest blood vessle";
+    }
+};
+
+
+
+class Brain : public Person{
+public:
+
+    void BrainOutput(){
+        Person::GM();
+        cout<<endl;
+        Person::LS();
+    }
+};
+
+class Heart : public Person{
+public:
+
+    void HeartOutput(){
+        Person::Valve();
+        cout<<endl;
+        Person::Aoerta();
+    }
+};
+
+class Legs : public Person{
+public:
+
+    void LegsOutput(){
+        Person::Femur();
+        cout<<endl;
+        Person::KC();
+    }
+};
+int main() {
+    Brain b1;
+    b1.BrainOutput();
+
+
+    return 0;
+}
